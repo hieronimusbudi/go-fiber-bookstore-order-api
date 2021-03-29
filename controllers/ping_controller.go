@@ -7,6 +7,6 @@ import (
 )
 
 func Ping(c *fiber.Ctx) error {
-	c.Status(http.StatusOK).SendString("ping!")
+	c.Status(http.StatusOK).SendString("ping!!! x")
 	return nil
 }

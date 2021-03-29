@@ -9,7 +9,7 @@ import (
 	"github.com/hieronimusbudi/go-fiber-bookstore-order-api/services"
 )
 
-func CreateOrder(c *fiber.Ctx) error {
+func Create(c *fiber.Ctx) error {
 	order := new(orders.Order)
 	if err := c.BodyParser(order); err != nil {
 		restErr := resterrors.NewBadRequestError("invalid json body")
@@ -17,7 +17,7 @@ func CreateOrder(c *fiber.Ctx) error {
 		return nil
 	}
 
-	result, saveErr := services.OrdersService.CreateOrder(*order)
+	result, saveErr := services.OrdersService.Create(*order)
 	if saveErr != nil {
 		c.Status(saveErr.Status()).JSON(saveErr)
 		return nil
@@ -26,20 +26,3 @@ func CreateOrder(c *fiber.Ctx) error {
 	c.Status(http.StatusCreated).JSON(result)
 	return nil
 }
-
-// func CreateItem(c *gin.Context) {
-// 	var item items.Item
-// 	if err := c.ShouldBindJSON(&item); err != nil {
-// 		restErr := resterrors.NewBadRequestError("invalid json body")
-// 		c.JSON(restErr.Status(), restErr)
-// 		return
-// 	}
-
-// 	result, saveErr := services.ItemsService.Create(item)
-// 	if saveErr != nil {
-// 		c.JSON(saveErr.Status(), saveErr)
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusCreated, result)
-// }

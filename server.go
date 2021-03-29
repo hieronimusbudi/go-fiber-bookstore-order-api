@@ -11,10 +11,12 @@ import (
 func main() {
 	app := fiber.New()
 
-	routes.OrderRoutes(app)
 	routes.PingRoutes(app)
+	routes.OrderRoutes(app)
 
 	go events.ConsumeItemCreatedEvent()
+	go events.ConsumeItemUpdatedEvent()
+	go events.ConsumeItemDeletedEvent()
 
 	mongodb.InitMongo()
 	app.Listen(":9010")

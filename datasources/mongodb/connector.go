@@ -18,7 +18,7 @@ var (
 )
 
 func InitMongo() {
-	clientOptions := options.Client().ApplyURI(mongoURI)
+	clientOptions := options.Client().ApplyURI(mongoURILocal)
 
 	client, clientErr := mongo.Connect(context.TODO(), clientOptions)
 	if clientErr != nil {
